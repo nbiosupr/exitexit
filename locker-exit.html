@@ -102,7 +102,6 @@
     <div id="box" style="width: 234px; height: 50px; margin-left: -18px; background-color: black; border-radius: 10px;">
       <h type="text" id="solution" style="text-align: center; margin-left: 15%; color: white;">
       </h>
-      <h type="text" id="sol" style="color:white; text-align: center;"></h>
     </div>
   </form>
 
@@ -116,11 +115,10 @@
     const $operator = document.querySelector('#operator');
     const $result = document.querySelector('#result');
     const $solution = document.querySelector('#solution');
-    const $sol = document.querySelector('#sol');
     const $form = document.querySelector('#form');
     const onClickNumber = (event) => {
 
-      if ($result.value.length <= 3) {
+      if ($result.value.length <= 7) {
         if (operator) {
           numTwo += event.target.textContent; // event.target.textContent  : 내가 클릭한 버튼의 글자를 그대로 가져온다.
         } else {
@@ -155,11 +153,10 @@
       $result = '';
     });
     document.querySelector('#calculate').addEventListener('click', () => {
-      if ($result.value == '9999') {
-        $solution.textContent = "켄싱턴을 가야지 왜 거기있어";
+      if ($result.value == '99999999') {
+        $solution.textContent = "켄싱턴을 가야지 왜 거기있어. 오는 길에 허니콤보 사와";
 
         audio_success.play();
-        $sol.textContent = '1203';
         document.querySelector('#num-1').style.display = 'none';
         document.querySelector('#num-2').style.display = 'none';
         document.querySelector('#num-3').style.display = 'none';
@@ -191,7 +188,6 @@
       numTwo = '';
       $result.value = '';
       $solution.textContent = '';
-      $sol.textContent = '';
 
     });
     $form.addEventListener('submit', () => {
