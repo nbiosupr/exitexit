@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script> 
+ 
+</head>
+<style>
+    * {
+      font-family: 'Nanum Pen Script', cursive;
+
+    }
+
+    img {
+      border-radius: 50%;
+      box-shadow: 3px 6px 0 rgb(0, 0, 0, 0.5);
+    }
+
+    img:active {
+      box-shadow: 1px 1px 0 rgb(0, 0, 0, 0.5);
+
+    }
+
+    #result {
+      width: 183px;
+      height: 50px;
+      margin: 5px;
+      text-align: right
+    }
+
+
+    button {
+      background-color: white;
+      border-style: none;
+      font-size: 0%;
+    }
+  </style>
+
+</head>
+<script>
+  var audio_click = new Audio('click.mp3');
+  audio_click.src = "./sound/click.mp3"
+  var audio_success = new Audio('success.mp3');
+  audio_success.src = "./sound/success.mp3"
+  var audio_fail = new Audio('fail.mp3');
+  audio_fail.src = "./sound/fail.mp3"
+</script>
+
+<body>
+
+    <form style="margin-left: 35%; margin-top: 10%;" id="form">
+  
+      <br>
+      <br>
+      <button onclick="audio_click.play();" id="down" value="down"><img src=" image/down.png" alt="">d</button>
+      <button onclick="audio_click.play();" id="up"><img src="image/up.png" alt="">u</button>
+      <button onclick="audio_click.play();" id="left"><img src="image/left.png" alt="">l</button>
+      <button onclick="audio_click.play();" id="right"><img src="image/right.png" alt="">r</button>
+      <br><br><br>
+      <div class="input-group flex-nowrap" style="width: 228px; ">
+        <button onclick="audio_click.play()" class="btn btn-secondary" id="clear"
+          style="width: 150px; margin-right: 10px; margin-left: 231px; font-size: 40px;">Clear</button>
+        <button class="btn btn-secondary" id="enter" style="width: 150px; font-size: 40px;">Enter</button>
+      </div>
+      <input readonly type="text" id="result" class="form-control" aria-label="Username"
+        style="margin-left: -8px; display: none;" aria-describedby="addon-wrapping">
+  
+      <br>
+      
+  
+        <textarea readonly  id="solution" class="form-control" aria-label="Username"
+        style="margin-top: -2%; margin-left: -6%; width: 70%; text-align: center; height: 150px; display: none; font-size: 38px"
+        aria-describedby="addon-wrapping">
+          노트에 뭔가 적혀있었던거 같긴한데..
+          I think I saw something in note
+        </textarea>
+
+    
+
+  <script>
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    var firebaseConfig = {
+      apiKey: "AIzaSyA_6ZPTFUHZUIdSHieZslnn5_xORLD_KU4",
+      authDomain: "exit-10888.firebaseapp.com",
+      projectId: "exit-10888",
+      storageBucket: "exit-10888.appspot.com",
+      messagingSenderId: "853671598942",
+      appId: "1:853671598942:web:00a237ae700b478e6acdcf",
+      measurementId: "G-MS1SFMQBWM"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    
+    
+  </script>
+  
+  <script>
+   const $result = document.querySelector('#result');
+    const $solution = document.querySelector('#solution');
+    const $form = document.querySelector('#form');
+
+
+
+
+    // document.querySelector('#down').addEventListener('click', onClick)
+    $('#down').click(function () {
+      $result.value += this.textContent
+    })
+    $('#up').click(function () {
+      $result.value += this.textContent
+    })
+    $('#left').click(function () {
+      $result.value += this.textContent
+    })
+    $('#right').click(function () {
+      $result.value += this.textContent
+    })
+
+    $('#enter').click(function () {
+      if ($result.value === 'lldrr') {
+        $solution.style.display = 'block'
+        audio_success.play();
+        document.querySelector("#down").style.display = 'none';
+        document.querySelector("#right").style.display = 'none';
+        document.querySelector("#left").style.display = 'none';
+        document.querySelector("#up").style.display = 'none';
+        document.querySelector('#enter').style.display = 'none';
+        document.querySelector('#clear').style.display = 'none';
+
+      } else {
+        audio_fail.play();
+        alert('삐이이이------')
+        $result.value === '';
+
+      }
+      $result.value = '';
+    })
+
+    $('#clear').click(function () {
+      $result.value = '';
+    })
+
+
+
+
+    $form.addEventListener('submit', () => {
+      event.preventDefault(); // 기본동작 막기 (새로고침 막기) -> why? answer값 초기화 방지
+
+
+    })
+
+  </script>
+
+</body>
+
+</html>
