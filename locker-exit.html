@@ -45,9 +45,6 @@
       margin: 5px
     }
 
-    #calculate {
-      width: 150px;
-    }
   </style>
 
 </head>
@@ -85,9 +82,9 @@
 
     </div>
     <div class="row">
+      <button onclick="audio.play();" class="btn btn-secondary" id="num-0">0</button>
       <button onclick="audio.play();" class="btn btn-secondary" id="clear">C</button>
-
-      <button class="btn btn-secondary" id="calculate">Enter</button>
+      <button class="btn btn-secondary" id="calculate">OK</button>
 
     </div>
 
@@ -138,7 +135,7 @@
     document.querySelector('#num-7').addEventListener('click', onClickNumber)
     document.querySelector('#num-8').addEventListener('click', onClickNumber)
     document.querySelector('#num-9').addEventListener('click', onClickNumber)
-
+    document.querySelector('#num-0').addEventListener('click', onClickNumber)
 
 
 
@@ -163,6 +160,7 @@
         document.querySelector('#num-7').style.display = 'none';
         document.querySelector('#num-8').style.display = 'none';
         document.querySelector('#num-9').style.display = 'none';
+        document.querySelector('#num-0').style.display = 'none';
         $result.style.display = 'none';
         document.querySelector('#calculate').style.display = 'none';
         document.querySelector('#clear').style.display = 'none';
