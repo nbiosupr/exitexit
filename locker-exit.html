@@ -95,6 +95,8 @@
     <div id="box" style="width: 234px; height: 50px; margin-left: -18px; background-color: black; border-radius: 10px;">
       <h type="text" id="solution" style="text-align: center; margin-left: 15%; color: white;">
       </h>
+      <span type="text" id="solution2" style="color: black;">
+      </span>
     </div>
   </form>
 
@@ -108,10 +110,11 @@
     const $operator = document.querySelector('#operator');
     const $result = document.querySelector('#result');
     const $solution = document.querySelector('#solution');
+    const $solution2 = document.querySelector('#solution2');
     const $form = document.querySelector('#form');
     const onClickNumber = (event) => {
 
-      if ($result.value.length <= 7) {
+      if ($result.value.length <= 3) {
         if (operator) {
           numTwo += event.target.textContent; // event.target.textContent  : 내가 클릭한 버튼의 글자를 그대로 가져온다.
         } else {
@@ -146,8 +149,9 @@
       $result = '';
     });
     document.querySelector('#calculate').addEventListener('click', () => {
-      if ($result.value == '99999999') {
+      if ($result.value == '0207') {
         $solution.textContent = "망치는 필요없다.";
+        $solution2.textContent = "3927";
 
         audio_success.play();
         document.querySelector('#num-1').style.display = 'none';
