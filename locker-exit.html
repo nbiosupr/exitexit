@@ -48,46 +48,39 @@
   </style>
 
 </head>
-<script>
-  var audio = new Audio('bbik.mp3');
-  audio.src = "./sound/bbik.mp3"
-  var audio_success = new Audio('success.mp3');
-  audio_success.src = "./sound/success.mp3"
-  var audio_fail = new Audio('fail.mp3');
-  audio_fail.src = "./sound/fail.mp3"
-</script>
 <body>  
   
   <form style="margin-left: 40%;" id="form">
-    <div class="input-group flex-nowrap" style="width: 228px; ">
-      <input readonly type="text" id="result" class="form-control" aria-label="Username" style="margin-left: -12%;"
-        aria-describedby="addon-wrapping">
+    <div id="locker-wrapper">
+      <div class="input-group flex-nowrap" style="width: 228px; ">
+        <input readonly type="text" id="result" class="form-control" aria-label="Username" style="margin-left: -12%;"
+          aria-describedby="addon-wrapping">
+      </div>
+  
+      <div class="row">
+        <button class="btn btn-secondary btn-locker">7</button>
+        <button class="btn btn-secondary btn-locker">8</button>
+        <button class="btn btn-secondary btn-locker">9</button>
+      </div>
+      <div class="row">
+        <button class="btn btn-secondary btn-locker">4</button>
+        <button class="btn btn-secondary btn-locker">5</button>
+        <button class="btn btn-secondary btn-locker">6</button>
+  
+      </div>
+      <div class="row">
+        <button class="btn btn-secondary btn-locker">1</button>
+        <button class="btn btn-secondary btn-locker">2</button>
+        <button class="btn btn-secondary btn-locker">3</button>
+  
+      </div>
+      <div class="row">
+        <button class="btn btn-secondary btn-locker">0</button>
+        <button class="btn btn-secondary" id="clear">C</button>
+        <button class="btn btn-secondary" id="calculate">OK</button>
+  
+      </div>
     </div>
-
-    <div class="row">
-      <button onclick="audio.play();" class="btn btn-secondary" id="num-7">7</button>
-      <button onclick="audio.play();" class="btn btn-secondary" id="num-8">8</button>
-      <button onclick="audio.play();" class="btn btn-secondary" id="num-9">9</button>
-    </div>
-    <div class="row">
-      <button onclick="audio.play();" class="btn btn-secondary" id="num-4">4</button>
-      <button onclick="audio.play();" class="btn btn-secondary" id="num-5">5</button>
-      <button onclick="audio.play();" class="btn btn-secondary" id="num-6">6</button>
-
-    </div>
-    <div class="row">
-      <button onclick="audio.play();" class="btn btn-secondary" id="num-1">1</button>
-      <button onclick="audio.play();" class="btn btn-secondary" id="num-2">2</button>
-      <button onclick="audio.play();" class="btn btn-secondary" id="num-3">3</button>
-
-    </div>
-    <div class="row">
-      <button onclick="audio.play();" class="btn btn-secondary" id="num-0">0</button>
-      <button onclick="audio.play();" class="btn btn-secondary" id="clear">C</button>
-      <button class="btn btn-secondary" id="calculate">OK</button>
-
-    </div>
-
 
     <div id="box" style="width: 234px; height: 50px; margin-left: -18px; background-color: black; border-radius: 10px;">
       <h type="text" id="solution" style="text-align: center; margin-left: 15%; color: white;">
@@ -99,97 +92,52 @@
 
 
   <script>
-    let numOne = '';
-    let operator = '';
-    let numTwo = '';
-    // let sound = document.getElementById('beep');
-    // 초기상태를 맨 위에 해두는게 보기 좋다 . 
-    const $operator = document.querySelector('#operator');
+    const audio = new Audio('bbik.mp3');
+    audio.src = "./sound/bbik.mp3"
+    const audio_success = new Audio('success.mp3');
+    audio_success.src = "./sound/success.mp3"
+    const audio_fail = new Audio('fail.mp3');
+    audio_fail.src = "./sound/fail.mp3"
+
     const $result = document.querySelector('#result');
     const $solution = document.querySelector('#solution');
     const $solution2 = document.querySelector('#solution2');
     const $form = document.querySelector('#form');
-    const onClickNumber = (event) => {
 
-      if ($result.value.length <= 3) {
-        if (operator) {
-          numTwo += event.target.textContent; // event.target.textContent  : 내가 클릭한 버튼의 글자를 그대로 가져온다.
+    [...document.getElementsByClassName("btn-locker")].forEach( btn => btn.addEventListener('click', (event) => {
+        if ($result.value.length <= 3) {
+          $result.value += event.target.textContent;
         } else {
-          numOne += event.target.textContent;
+          alert('비밀번호는 4자리입니다.');
         }
-        $result.value += event.target.textContent;
-        // (number) => () => {} 함수안에 함수 // 고차함수.
-      } else {
-        alert('비밀번호는 4자리입니다.');
-      }
+      })
+    );
+    
+    [...document.getElementsByClassName("btn")].forEach( btn => btn.addEventListener('click', (event) => audio.play()))
 
-
-    }
-
-    document.querySelector('#num-1').addEventListener('click', onClickNumber)
-    document.querySelector('#num-2').addEventListener('click', onClickNumber)
-    document.querySelector('#num-3').addEventListener('click', onClickNumber)
-    document.querySelector('#num-4').addEventListener('click', onClickNumber)
-    document.querySelector('#num-5').addEventListener('click', onClickNumber)
-    document.querySelector('#num-6').addEventListener('click', onClickNumber)
-    document.querySelector('#num-7').addEventListener('click', onClickNumber)
-    document.querySelector('#num-8').addEventListener('click', onClickNumber)
-    document.querySelector('#num-9').addEventListener('click', onClickNumber)
-    document.querySelector('#num-0').addEventListener('click', onClickNumber)
-
-
-
-
-
-
-    document.querySelector('#clear').addEventListener('click', () => {
-      $result = '';
-    });
+    document.querySelector('#clear').addEventListener('click', () => {$result.value = '';});
+    
     document.querySelector('#calculate').addEventListener('click', () => {
       if ($result.value == '0207') {
         $solution.textContent = "망치는 필요없다.";
         $solution2.textContent = "3927";
 
         audio_success.play();
-        document.querySelector('#num-1').style.display = 'none';
-        document.querySelector('#num-2').style.display = 'none';
-        document.querySelector('#num-3').style.display = 'none';
-        document.querySelector('#num-4').style.display = 'none';
-        document.querySelector('#num-5').style.display = 'none';
-        document.querySelector('#num-6').style.display = 'none';
-        document.querySelector('#num-7').style.display = 'none';
-        document.querySelector('#num-8').style.display = 'none';
-        document.querySelector('#num-9').style.display = 'none';
-        document.querySelector('#num-0').style.display = 'none';
-        $result.style.display = 'none';
-        document.querySelector('#calculate').style.display = 'none';
-        document.querySelector('#clear').style.display = 'none';
+        document.getElementById('locker-wrapper').style.display = 'none';
+        
         document.querySelector('#box').style.height = '150px';
         document.querySelector('#box').style.marginTop = '20%';
-
         document.querySelector('#box').style.width = '530px';
         $solution.style.fontSize = "50px";
         $form.style.marginLeft = '30%'
-
-
 
       } else {
         $solution.textContent = ' ------삐------';
         audio_fail.play();
       }
     });
-    document.querySelector('#clear').addEventListener('click', () => {
-      numOne = '';
-      numTwo = '';
-      $result.value = '';
-      $solution.textContent = '';
 
-    });
-    $form.addEventListener('submit', () => {
-      event.preventDefault(); // 기본동작 막기 (새로고침 막기) -> why? answer값 초기화 방지
-
-
-    })
+    $form.addEventListener('submit', () => event.preventDefault());
 
   </script>
 
